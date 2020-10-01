@@ -1,0 +1,4 @@
+INFO : logger.py : 2020-10-01 12:00:08,131 : Current google-chrome version is 85.0.4183
+INFO : logger.py : 2020-10-01 12:00:08,131 : Get LATEST driver version for 85.0.4183
+INFO : logger.py : 2020-10-01 12:00:08,164 : Driver [/home/nicolas/.wdm/drivers/chromedriver/linux64/85.0.4183.87/chromedriver] found in cache
+INFO : _internal.py : 2020-10-01 12:00:12,581 :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
