@@ -4,8 +4,6 @@ from time import sleep
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 
-
-
 class scraping:
 
     def __init__(self):
@@ -61,15 +59,14 @@ class scraping:
                 - latter = letra do dicionario
         """
 
-        self.browser.find_element_by_xpath(f"//a[@id='letter-{letter.upper()}']").click()
-        sleep(1)
-    
-        objects = self._listWords()
+        try:
+            self.browser.find_element_by_xpath(f"//a[@id='letter-{letter.upper()}']").click()
+        except:
+            return None
 
-        words = []
-        for obj in objects:
-            words.append(obj.text)
-        
+        sleep(1)
+        words = self._listWords()
+       
         return words
 
     def getGif(self, word):
@@ -85,6 +82,10 @@ class scraping:
         """
 
         page = self._searchWordPage(word)
+        
+        if(page == None):
+            return None
+
         gif = page.source.get('src')
 
         return "http://www.acessibilidadebrasil.org.br/libras_3/" + gif
@@ -93,6 +94,6 @@ class scraping:
 if __name__ == "__main__":
     scrap = scraping()
 
-    print(scrap.getGif("ostra"))
+    print(scrap.getGif("dsadsad"))
     
     #self.browser.quit()
