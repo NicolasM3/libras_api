@@ -1,15 +1,16 @@
-from selenium.webdriver import Chrome
-from webdriver_manager.chrome import ChromeDriverManager
-from time import sleep
+from selenium.webdriver import PhantomJS
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
+
+
+from time import sleep
 
 class scraping:
 
     def __init__(self):
         """Inicia o browser e carrega a página"""
 
-        self.browser = Chrome(ChromeDriverManager().install())
+        self.browser = PhantomJS(executable_path = "./.webdriver/phantomjs")
         self.url = "http://www.acessibilidadebrasil.org.br/libras_3/"
 
         self.browser.get(self.url)
@@ -91,9 +92,7 @@ class scraping:
         return "http://www.acessibilidadebrasil.org.br/libras_3/" + gif
         
 
-if __name__ == "__main__":
-    scrap = scraping()
+# if __name__ == "__main__":
+#     scrap = scraping()
 
-    print(scrap.getGif("dsadsad"))
-    
-    #self.browser.quit()
+#     print(scrap.getGif("abacate"))
