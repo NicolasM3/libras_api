@@ -1,15 +1,20 @@
 from selenium.webdriver import Chrome
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+
 class scraping:
 
     def __init__(self):
         """Inicia o browser e carrega a página"""
+        
 
-        self.browser = Chrome(ChromeDriverManager().install())
+        self.browser = Chrome(ChromeDriverManager().install(), options=chrome_options)
         self.url = "http://www.acessibilidadebrasil.org.br/libras_3/"
 
         self.browser.get(self.url)
@@ -94,6 +99,6 @@ class scraping:
 if __name__ == "__main__":
     scrap = scraping()
 
-    print(scrap.getGif("dsadsad"))
+    print(scrap.getDictionary("b"))
     
     #self.browser.quit()
