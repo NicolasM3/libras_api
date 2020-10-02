@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from gevent.pywsgi import WSGIServer
 import logging
 
 from scraping import scraping
@@ -13,7 +14,7 @@ logger = logging.getLogger()
 
 scrap = scraping()
 
-app = Flask("Libras Acedemy")
+app = Flask(__name__)
 
 @app.route("/getDict/<latter>", methods=["GET"])
 def getDictionary(latter):
@@ -39,4 +40,11 @@ def getGif(word):
         
     return jsonify(link)
 
-app.run()
+if __name__ == '__main__':
+    # Debug/Development
+    # app.run(debug=True, host="0.0.0.0", port="5000")
+    # Production
+    logger.info("Server running - localhost:5000")
+    print("Server running - localhost:5000")
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
