@@ -15,6 +15,7 @@ class scraping:
         
 
         self.browser = Chrome(ChromeDriverManager().install(), options=chrome_options)
+
         self.url = "http://www.acessibilidadebrasil.org.br/libras_3/"
 
         self.browser.get(self.url)
@@ -147,8 +148,8 @@ class scraping:
 
         return info
 
-if __name__ == "__main__":
-    scrap = scraping()
+# if __name__ == "__main__":
+#     scrap = scraping()
 
     print(scrap.getWordInfo("abacate"))
     
