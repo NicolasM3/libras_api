@@ -1,16 +1,21 @@
-from selenium.webdriver import PhantomJS
+from selenium.webdriver import Chrome
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from time import sleep
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 
-
-from time import sleep
+chrome_options = Options()
+chrome_options.add_argument("--headless")
 
 class scraping:
 
     def __init__(self):
         """Inicia o browser e carrega a página"""
+        
 
-        self.browser = PhantomJS(executable_path = "./.webdriver/phantomjs")
+        self.browser = Chrome(ChromeDriverManager().install(), options=chrome_options)
+
         self.url = "http://www.acessibilidadebrasil.org.br/libras_3/"
 
         self.browser.get(self.url)
@@ -90,9 +95,62 @@ class scraping:
         gif = page.source.get('src')
 
         return "http://www.acessibilidadebrasil.org.br/libras_3/" + gif
+
+    def getExample(self, word):
+        """
+            Retorna duas string, uma em português e outra em libras.
+
+            argumentos:
+                - word = palavra a ser procurada
+
+            retorno:
+                - frase = frase em português 
+                - frase_libra = frase em libras
+                - None = se não achar
+        """
+
+        page = self._searchWordPage(word)
+
+        if page == None:
+            return None
+
+        portugues = page.find("div", {"id": "input-exemplo"}).string
+        libras = page.find("div", {"id": "input-libras"}).string
         
+        examples = {"exemplo_portugues": portugues, "exemplo_libras":libras}
+
+        return examples
+
+    def getWordInfo(self, word):
+        """
+            Retorna as informações da palavra
+
+            argumentos:
+                - word = palavra a ser procurada
+
+            retorno:
+                - significado = significado da palavra
+                - genero = gênero d palavra
+                - origem = origem da palavra(nacional, internacional)
+
+        """
+
+        page = self._searchWordPage(word)
+
+        if page == None:
+            return None
+
+        acepcao = page.find("div", {"id": "input-acepcao"}).string
+        genero = page.find("div", {"id": "input-classe"}).string
+        origem = page.find("div", {"id": "input-origem"}).string
+
+        info = {"acepcao" : acepcao, "genero" : genero.lower(), "origem" : origem}
+
+        return info
 
 # if __name__ == "__main__":
 #     scrap = scraping()
 
-#     print(scrap.getGif("abacate"))
+    print(scrap.getWordInfo("abacate"))
+    
+    #self.browser.quit()
