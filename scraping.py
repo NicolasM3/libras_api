@@ -94,11 +94,62 @@ class scraping:
         gif = page.source.get('src')
 
         return "http://www.acessibilidadebrasil.org.br/libras_3/" + gif
+
+    def getExample(self, word):
+        """
+            Retorna duas string, uma em português e outra em libras.
+
+            argumentos:
+                - word = palavra a ser procurada
+
+            retorno:
+                - frase = frase em português 
+                - frase_libra = frase em libras
+                - None = se não achar
+        """
+
+        page = self._searchWordPage(word)
+
+        if page == None:
+            return None
+
+        portugues = page.find("div", {"id": "input-exemplo"}).string
+        libras = page.find("div", {"id": "input-libras"}).string
         
+        examples = {"exemplo_portugues": portugues, "exemplo_libras":libras}
+
+        return examples
+
+    def getWordInfo(self, word):
+        """
+            Retorna as informações da palavra
+
+            argumentos:
+                - word = palavra a ser procurada
+
+            retorno:
+                - significado = significado da palavra
+                - genero = gênero d palavra
+                - origem = origem da palavra(nacional, internacional)
+
+        """
+
+        page = self._searchWordPage(word)
+
+        if page == None:
+            return None
+
+        acepcao = page.find("div", {"id": "input-acepcao"}).string
+        genero = page.find("div", {"id": "input-classe"}).string
+        origem = page.find("div", {"id": "input-origem"}).string
+
+        info = {"acepcao" : acepcao, "genero" : genero.lower(), "origem" : origem}
+
+        return info
 
 if __name__ == "__main__":
     scrap = scraping()
 
-    print(scrap.getDictionary("b"))
+    print(scrap.getWordInfo("abacate"))
     
     #self.browser.quit()
