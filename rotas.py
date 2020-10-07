@@ -40,6 +40,30 @@ def getGif(word):
         
     return jsonify(link)
 
+@app.route("/getExamples/<word>", methods=["GET"])
+def getExample(word):
+    logger.info(f"get examples of {word}")
+
+    example = scrap.getExample(word)
+
+    if example == None:
+        logger.info(f"Palavra não encontrda")
+        return jsonify({"None" : "Nenhnuma palavra encotrada"})
+        
+    return jsonify(example)
+
+@app.route("/getInfo/<word>", methods=["GET"])
+def getWordInfo(word):
+    logger.info(f"get info of {word}")
+
+    info = scrap.getWordInfo(word)
+
+    if info == None:
+        logger.info(f"Palavra não encontrda")
+        return jsonify({"None" : "Nenhnuma palavra encotrada"})
+        
+    return jsonify(info)
+
 if __name__ == '__main__':
     # Debug/Development
     # app.run(debug=True, host="0.0.0.0", port="5000")
