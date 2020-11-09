@@ -148,9 +148,19 @@ class scraping:
 
         return info
 
+    def getLatters(self):
+
+        list_latter = []
+        objects = self.browser.find_elements_by_xpath("//div[@id='filter-letter']//ul[@class='list-inline']//a")
+
+        for obj in objects:
+            list_latter.append(obj.text)
+
+        return list_latter
+
 # if __name__ == "__main__":
 #     scrap = scraping()
 
-    print(scrap.getWordInfo("abacate"))
+#     print(scrap.getLatters())
     
     #self.browser.quit()

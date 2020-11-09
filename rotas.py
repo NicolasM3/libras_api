@@ -26,7 +26,9 @@ def getDictionary(latter):
         logger.info(f"Letra não encontrda")
         return jsonify({"None" : "Nenhuma palavra encontrada com essa letra"})
 
-    return jsonify(words)
+    json_format = {'words': words}
+
+    return jsonify(json_format)
 
 @app.route("/getGif/<word>", methods=["GET"])
 def getGif(word):
