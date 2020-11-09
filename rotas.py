@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from gevent.pywsgi import WSGIServer
 import logging
+from flask import request
 
 from scraping import scraping
 
@@ -16,11 +17,13 @@ scrap = scraping()
 
 app = Flask(__name__)
 
-@app.route("/getDict/<latter>", methods=["GET"])
-def getDictionary(latter):
-    logger.info(f"getDictionary of {latter}")
+@app.route("/getDict/", methods=["GET"])
+def getDictionary():
+    letter = request.args.get('letter')
 
-    words = scrap.getDictionary(latter)
+    logger.info(f"getDictionary of {letter}")
+
+    words = scrap.getDictionary(letter)
 
     if(words == None):
         logger.info(f"Letra não encontrda")
