@@ -33,8 +33,10 @@ def getDictionary():
 
     return jsonify(json_format)
 
-@app.route("/getGif/<word>", methods=["GET"])
-def getGif(word):
+@app.route("/getGif/", methods=["GET"])
+def getGif():
+    word = request.args.get('word')
+
     logger.info(f"getGif of {word}")
 
     link = {"link": scrap.getGif(word)}
@@ -45,8 +47,10 @@ def getGif(word):
         
     return jsonify(link)
 
-@app.route("/getExamples/<word>", methods=["GET"])
-def getExample(word):
+@app.route("/getExamples/", methods=["GET"])
+def getExample():
+    word = request.args.get('word')
+
     logger.info(f"get examples of {word}")
 
     example = scrap.getExample(word)
@@ -57,8 +61,10 @@ def getExample(word):
         
     return jsonify(example)
 
-@app.route("/getInfo/<word>", methods=["GET"])
-def getWordInfo(word):
+@app.route("/getInfo/", methods=["GET"])
+def getWordInfo():
+    word = request.args.get('word')
+
     logger.info(f"get info of {word}")
 
     info = scrap.getWordInfo(word)
