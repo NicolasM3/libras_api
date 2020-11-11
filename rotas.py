@@ -72,8 +72,6 @@ def getWordInfo():
     if info == None:
         logger.info(f"Palavra não encontrda")
         return jsonify({"None" : "Nenhnuma palavra encotrada"})
-        
-    scrap.refresh()
 
     return jsonify(info)
 
