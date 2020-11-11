@@ -45,6 +45,7 @@ class scraping:
                 - None = se não achar a palavras
         """
         self.browser.find_element_by_xpath('//table[@class="search box"]//*[@id="search_field"]').click()
+        self.browser.find_element_by_xpath('//table[@class="search box"]//*[@id="search_field"]').clear()
         self.browser.find_element_by_xpath('//table[@class="search box"]//*[@id="search_field"]').send_keys(word.upper())
         self.browser.find_element_by_xpath('//table[@class="search box"]//input[@class="btn submit"]').click()
 
