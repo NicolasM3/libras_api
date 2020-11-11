@@ -75,6 +75,20 @@ def getWordInfo():
 
     return jsonify(info)
 
+@app.route("/getAll/", methods=["GET"])
+def getWordAll():
+    word = request.args.get('word')
+
+    logger.info(f"get all the info of {word}")
+
+    info = scrap.getAllTheWord(word)
+
+    if info == None:
+        logger.info(f"Palavra não encontrda")
+        return jsonify({"None" : "Nenhnuma palavra encotrada"})
+
+    return jsonify(info)
+
 if __name__ == '__main__':
     # Debug/Development
     # app.run(debug=True, host="0.0.0.0", port="5000")

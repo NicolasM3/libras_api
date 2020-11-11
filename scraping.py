@@ -133,7 +133,6 @@ class scraping:
                 - significado = significado da palavra
                 - genero = gênero d palavra
                 - origem = origem da palavra(nacional, internacional)
-
         """
 
         page = self._searchWordPage(word)
@@ -159,9 +158,22 @@ class scraping:
 
         return list_latter
 
+    def getAllTheWord(self, word):
+
+        ret_dict = {}
+
+        info = self.getWordInfo(word)
+        samples = self.getExample(word)
+        ret_dict = {"link": self.getGif(word)}
+
+        ret_dict.update(info)
+        ret_dict.update(samples)
+        
+        return ret_dict
+        
 # if __name__ == "__main__":
 #     scrap = scraping()
 
-#     print(scrap.getLatters())
+#     print(scrap.getAllTheWord("carro"))
     
-    #self.browser.quit()
+    # self.browser.quit()
